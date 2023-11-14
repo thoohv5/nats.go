@@ -27,8 +27,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/nats-io/nats.go/internal/parser"
 	"github.com/nats-io/nuid"
+
+	"github.com/nats-io/nats.go/internal/parser"
 )
 
 // JetStream allows persistent messaging through JetStream.
@@ -1390,7 +1391,7 @@ func processConsInfo(info *ConsumerInfo, userCfg *ConsumerConfig, isPullMode boo
 }
 
 func checkConfig(s, u *ConsumerConfig) error {
-	makeErr := func(fieldName string, usrVal, srvVal any) error {
+	makeErr := func(fieldName string, usrVal, srvVal interface{}) error {
 		return fmt.Errorf("configuration requests %s to be %v, but consumer's value is %v", fieldName, usrVal, srvVal)
 	}
 
@@ -3620,7 +3621,7 @@ const (
 	// DiscardOld will remove older messages to return to the limits. This is
 	// the default.
 	DiscardOld DiscardPolicy = iota
-	//DiscardNew will fail to store new messages.
+	// DiscardNew will fail to store new messages.
 	DiscardNew
 )
 
